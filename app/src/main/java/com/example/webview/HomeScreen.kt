@@ -6,14 +6,21 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Chat
+import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -24,6 +31,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +49,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 navigationIcon = {
                     if (showWebView) {
                         IconButton(onClick = { showWebView = false }) {
-                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "back")
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "back"
+                            )
                         }
                     }
                 }
@@ -58,10 +70,12 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     }
 }
 
+
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun HomeContent(showWebView: Boolean, onButtonClick: () -> Unit, modifier: Modifier = Modifier) {
-    val url = "https://www.infinitelearning.id/"
+    val url =
+        "https://massive-integration-chatbot.s3.sng01.cloud-object-storage.appdomain.cloud/chatbot-assistant.html"
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -69,8 +83,17 @@ fun HomeContent(showWebView: Boolean, onButtonClick: () -> Unit, modifier: Modif
         modifier = modifier.fillMaxSize()
     ) {
         if (!showWebView) {
-            Button(onClick = onButtonClick) {
-                Text(text = "Show Web View")
+            Button(
+                onClick = onButtonClick,
+                colors = ButtonDefaults.buttonColors(Color.Blue)
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.Chat,
+                    contentDescription = "icon chatbot",
+                    tint = Color.White
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(text = "Chatbot", color = Color.White)
             }
         } else {
             AndroidView(
